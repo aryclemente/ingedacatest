@@ -1,0 +1,474 @@
+@import url('https://fonts.googleapis.com/css2?family=Zen+Dots&family=Outfit:wght@300;400;600&display=swap');
+
+/* Design Tokens & Corporate Identity */
+:root {
+    --bg-color: #050505;
+    --surface-color: #0f0f0f;
+    --primary-orange: #f43f07;
+    --accent-blue: #004a99;
+    --text-primary: #ffffff;
+    --text-secondary: #a0a0a0;
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    --font-heading: 'Zen Dots', sans-serif;
+    --font-body: 'Outfit', sans-serif;
+    --corporate-gradient: linear-gradient(90deg, #f43f07 0%, #a07aff 50%, #004a99 100%);
+}
+
+html, body {
+    overflow-x: hidden !important;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    position: relative;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+h1, h2, h3 {
+    font-family: var(--font-heading);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.text-gradient {
+    background: var(--corporate-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+}
+
+/* Scroll Animations */
+.reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: var(--transition);
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Floating Pill Header */
+header {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 1200px;
+    padding: 0.8rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(15, 15, 15, 0.85);
+    backdrop-filter: blur(20px);
+    z-index: 1000;
+    border-radius: 100px;
+    border: 1px solid var(--glass-border);
+    transition: var(--transition);
+}
+
+.logo-container img {
+    height: 32px;
+}
+
+nav ul {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    align-items: center;
+}
+
+nav ul li a {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-family: var(--font-heading);
+    text-transform: uppercase;
+    transition: var(--transition);
+    opacity: 0.8;
+}
+
+.nav-actions {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.menu-toggle span {
+    width: 25px;
+    height: 2px;
+    background: white;
+    display: block;
+}
+
+.hero-content h1 {
+    font-size: clamp(2rem, 8vw, 4.5rem);
+    margin-bottom: 2rem;
+    line-height: 1.1;
+}
+
+.hero-content h1 span:first-child {
+    color: white !important;
+}
+
+/* Corporate Gradient Title */
+.hero-content h1 span.text-gradient {
+    background: var(--corporate-gradient);
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    display: inline-block;
+}
+
+/* Hero Section Refined with 75% Overlay */
+#hero {
+    height: 100vh;
+    background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), 
+                url('assets/images/Caracascampus-48.jpg') center/cover no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 10%;
+}
+
+.hero-content {
+    max-width: 1000px;
+    width: 100%;
+}
+
+.hero-content h1 {
+    margin-bottom: 2rem;
+}
+
+.hero-content p {
+    color: #ffffff !important;
+    opacity: 1;
+    font-weight: 300;
+    max-width: 800px;
+    margin: 0 auto 3rem auto;
+}
+
+/* Nosotros Section - Split Layout */
+#nosotros {
+    padding: 8rem 10%;
+    background: var(--bg-color);
+}
+
+.nosotros-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 5rem;
+    align-items: center;
+}
+
+.nosotros-text {
+    text-align: left;
+}
+
+.nosotros-text p {
+    font-size: 1.15rem;
+    margin-bottom: 2rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+.nosotros-image {
+    height: 500px;
+    border-radius: 40px;
+    background: url('assets/images/DT INGEDACA.jpg') center/cover;
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+}
+
+/* Metrics Section - Compact & Animated */
+#impact { 
+    padding: 4rem 10%; 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+    gap: 3rem; 
+    background: #080808;
+}
+
+.metric-card { 
+    background: transparent; 
+    padding: 2rem; 
+    border-radius: 0; 
+    border: none; 
+    text-align: center; 
+}
+
+.metric-card h3 { 
+    font-size: 3.5rem; 
+    margin-bottom: 0; 
+}
+
+.metric-card.reveal { transition-delay: calc(var(--delay, 0) * 0.2s); }
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+    padding: 0 2rem;
+}
+
+.service-card {
+    position: relative;
+    background: var(--surface-color);
+    padding: 2px;
+    border-radius: 32px;
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.service-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--corporate-gradient);
+    opacity: 0.3;
+    transition: var(--transition);
+}
+
+.service-card:hover::before {
+    opacity: 1;
+    animation: border-rotate 4s linear infinite;
+}
+
+.service-inner {
+    background: var(--surface-color);
+    border-radius: 38px;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+}
+
+.service-visual { height: 280px; background-size: cover; background-position: center; position: relative; }
+.service-body { padding: 3rem; }
+
+@keyframes border-rotate {
+    0% { filter: hue-rotate(0deg); }
+    100% { filter: hue-rotate(360deg); }
+}
+
+/* Partners - Improved Visibility */
+.aliados-container { 
+    padding: 6rem 0; 
+    background: #080808; 
+    overflow: hidden; 
+    width: 100%;
+}
+
+.marquee { 
+    display: flex; 
+    gap: 6rem; 
+    animation: scroll 40s linear infinite; 
+    width: max-content; 
+    align-items: center;
+}
+
+.marquee-item {
+    width: 140px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+}
+
+.marquee-item img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+    opacity: 0.5;
+    transition: var(--transition);
+}
+
+.marquee-item:hover img {
+    filter: none;
+    opacity: 1;
+}
+
+.marquee-item:hover {
+    transform: scale(1.1);
+}
+
+#contact {
+    padding: 8rem 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #050505;
+}
+
+.form-wrapper { 
+    background: var(--surface-color); 
+    padding: 5rem; 
+    border-radius: 48px; 
+    border: 1px solid var(--glass-border); 
+    max-width: 800px; 
+    width: 100%; 
+    box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+}
+
+input, select, textarea { 
+    width: 100%; 
+    padding: 1.25rem 1.5rem; 
+    background: #1a1a1a; 
+    border: 1px solid var(--glass-border); 
+    border-radius: 16px; 
+    color: white; 
+    margin-bottom: 1.5rem; 
+    font-family: var(--font-body); 
+    font-size: 1rem;
+}
+
+.btn-primary { 
+    background: var(--primary-orange); 
+    color: white; 
+    padding: 1rem 2.5rem; 
+    border-radius: 50px; 
+    font-family: var(--font-heading); 
+    text-decoration: none; 
+    display: inline-block; 
+    border: none; 
+    cursor: pointer; 
+    text-transform: uppercase; 
+    font-size: 0.9rem;
+}
+
+footer {
+    padding: 5rem 10% 2.5rem 10%;
+    background: #080808;
+    border-top: 1px solid var(--glass-border);
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 4rem;
+    margin-bottom: 4rem;
+}
+
+.footer-logo img { height: 32px; margin-bottom: 1.5rem; }
+.footer-col h4 { font-size: 0.9rem; margin-bottom: 1.5rem; color: var(--text-primary); opacity: 0.7; }
+.footer-col ul { list-style: none; }
+.footer-col ul li { margin-bottom: 0.8rem; }
+.footer-col ul li a { color: var(--text-secondary); text-decoration: none; transition: var(--transition); font-size: 0.9rem; }
+.footer-col ul li a:hover { color: var(--primary-orange); }
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--glass-border);
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+}
+
+/* Mobile Perfection Review */
+@media (max-width: 992px) {
+    .nosotros-grid { grid-template-columns: 1fr; gap: 4rem; }
+    .nosotros-image { height: 350px; }
+    .nosotros-text { text-align: center; }
+    header { width: 95%; top: 10px; padding: 0.8rem 1.5rem; }
+    #hero { padding: 0 5%; }
+    .services-grid { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+}
+
+@media (max-width: 768px) {
+    header {
+        width: 95% !important;
+        padding: 0.6rem 1rem !important;
+        transform: translateX(-50%) !important;
+        left: 50% !important;
+    }
+    
+    header nav { 
+        display: none !important; 
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100% !important;
+        height: 100vh !important;
+        background: #0f0f0f;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 2000;
+    }
+    
+    header nav.mobile-active { 
+        display: flex !important; 
+    }
+    
+    .menu-toggle { 
+        display: flex !important; 
+        z-index: 2100;
+    }
+    
+    .lang-switch { display: none; }
+    
+    nav ul { 
+        flex-direction: column; 
+        gap: 2.5rem; 
+        padding: 0;
+    }
+    
+    nav ul li a { 
+        font-size: 1.8rem; 
+    }
+
+    .hero-content h1 { 
+        font-size: 2.2rem !important; 
+        padding: 0 1rem; 
+        line-height: 1.1; 
+    }
+    
+    .hero-content p { 
+        padding: 0 1rem; 
+        font-size: 1rem; 
+    }
+    
+    .nosotros-grid { 
+        grid-template-columns: 1fr;
+        padding: 0 1.5rem; 
+        gap: 3rem; 
+    }
+    
+    .services-grid { 
+        grid-template-columns: 1fr; 
+        padding: 0 1.5rem; 
+    }
+    
+    .form-wrapper { 
+        padding: 3rem 1.5rem; 
+        width: 92%;
+    }
+    
+    .footer-grid { 
+        grid-template-columns: 1fr; 
+        text-align: center; 
+    }
+}

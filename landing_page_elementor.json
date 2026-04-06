@@ -1,0 +1,205 @@
+{
+	"version": "0.4",
+	"title": "Ingedaca Full Landing Page Master",
+	"type": "section",
+	"content": [
+		{
+			"id": "hero_section_ing",
+			"elType": "section",
+			"settings": {
+				"layout": "full_width",
+				"height": "min-height",
+				"custom_height": { "unit": "vh", "size": 100 },
+				"column_position": "middle",
+				"background_background": "classic",
+				"background_image": { "url": "https://ingedaca.com/wp-content/uploads/2026/03/Caracascampus-48-scaled.jpg", "id": "" },
+				"background_size": "cover",
+				"background_overlay_background": "classic",
+				"background_overlay_color": "rgba(0,0,0,0.75)"
+			},
+			"elements": [
+				{
+					"elType": "column",
+					"settings": { "_column_size": 100, "vertical_align": "middle", "horizontal_align": "center" },
+					"elements": [
+						{
+							"elType": "widget",
+							"widgetType": "heading",
+							"settings": {
+								"title": "Engineering <span class=\"text-gradient\">What's Next</span>",
+								"header_size": "h1",
+								"align": "center",
+								"typography_typography": "custom",
+								"typography_font_family": "Zen Dots",
+								"typography_font_size": { "unit": "px", "size": 72 }
+							}
+						},
+						{
+							"elType": "widget",
+							"widgetType": "text-editor",
+							"settings": {
+								"content": "<p>Lideramos la transformación industrial a través de servicios expertos de ingeniería digital, automatización e integración.</p>",
+								"align": "center",
+								"text_color": "#ffffff",
+								"typography_typography": "custom",
+								"typography_font_family": "Outfit",
+								"typography_font_size": { "unit": "px", "size": 18 },
+                                "margin": { "unit": "px", "top": "20", "right": "0", "bottom": "40", "left": "0", "isLinked": false }
+							}
+						},
+						{
+							"id": "hero_btn",
+							"elType": "widget",
+							"widgetType": "button",
+							"settings": {
+								"text": "Impulsa tu Proyecto",
+								"link": { "url": "#contact" },
+								"align": "center",
+								"background_color": "#f43f07",
+								"border_radius": { "unit": "px", "top": "50", "right": "50", "bottom": "50", "left": "50", "isLinked": true },
+								"typography_typography": "custom",
+								"typography_font_family": "Zen Dots"
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"id": "nosotros_section_ing",
+			"elType": "section",
+			"settings": { "padding": { "unit": "px", "top": "100", "bottom": "100", "isLinked": false } },
+			"elements": [
+				{
+					"elType": "column",
+					"settings": { "_column_size": 50, "padding": { "unit": "px", "top": "0", "right": "30", "bottom": "0", "left": "30", "isLinked": false } },
+					"elements": [
+						{
+							"elType": "widget",
+							"widgetType": "heading",
+							"settings": { 
+                                "title": "Creamos <span class=\"text-gradient\">un impacto tangible</span>", 
+                                "header_size": "h2",
+                                "typography_typography": "custom",
+								"typography_font_family": "Zen Dots",
+                                "margin": { "unit": "px", "top": "0", "right": "0", "bottom": "30", "left": "0", "isLinked": false }
+                            }
+						},
+						{
+							"elType": "widget",
+							"widgetType": "text-editor",
+							"settings": { 
+                                "content": "<p>En <span style=\"color: #f43f07;\">INGEDACA</span>, ayudamos a las organizaciones a construir, integrar y operar sus capacidades industriales con mayor fiabilidad, claridad y eficiencia.</p><p>Nuestro trabajo combina Ingeniería Digital, Infraestructura y Operaciones, e Integración de Sistemas, permitiendo entornos industriales modernos, conectados y escalables.</p><p>Acompañamos a nuestros clientes desde el concepto hasta la operación, asegurando que cada solución esté alineada con su visión y los objetivos de su entorno.</p>",
+                                "text_color": "#a0a0a0",
+								"typography_typography": "custom",
+								"typography_font_family": "Outfit",
+								"typography_font_size": { "unit": "px", "size": 18 }
+                            }
+						}
+					]
+				},
+				{
+					"elType": "column",
+					"settings": { "_column_size": 50, "padding": { "unit": "px", "top": "0", "right": "30", "bottom": "0", "left": "30", "isLinked": false } },
+					"elements": [
+						{
+							"elType": "widget",
+							"widgetType": "image",
+							"settings": {
+								"image": { "url": "https://ingedaca.com/wp-content/uploads/2026/03/CaracasCampusDron-scaled.jpg" },
+								"_custom_css": "selector img { height: 500px; width: 100%; object-fit: cover; border-radius: 40px; box-shadow: 0 40px 100px rgba(0,0,0,0.5); border: 1px solid rgba(255, 255, 255, 0.1); }"
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"id": "metrics_section_ing",
+			"elType": "section",
+			"settings": { "background_background": "classic", "background_color": "#080808", "padding": { "unit": "px", "top": "60", "bottom": "60", "isLinked": false } },
+			"elements": [
+				{
+					"elType": "column",
+					"settings": { "_column_size": 33 },
+					"elements": [{ "elType": "widget", "widgetType": "html", "settings": { "html": "<div class=\"metric-card\"><h3 class=\"text-gradient\">100+</h3><p>Ingenieros</p></div>" } }]
+				},
+				{
+					"elType": "column",
+					"settings": { "_column_size": 33 },
+					"elements": [{ "elType": "widget", "widgetType": "html", "settings": { "html": "<div class=\"metric-card\"><h3 class=\"text-gradient\">15+</h3><p>Años</p></div>" } }]
+				},
+				{
+					"elType": "column",
+					"settings": { "_column_size": 33 },
+					"elements": [{ "elType": "widget", "widgetType": "html", "settings": { "html": "<div class=\"metric-card\"><h3 class=\"text-gradient\">500+</h3><p>Proyectos</p></div>" } }]
+				}
+			]
+		},
+		{
+			"id": "services_section_ing",
+			"elType": "section",
+			"settings": { "padding": { "unit": "px", "top": "100", "bottom": "100", "isLinked": false } },
+			"elements": [
+				{
+					"elType": "column",
+					"settings": { "_column_size": 100 },
+					"elements": [
+						{
+							"elType": "widget",
+							"widgetType": "heading",
+							"settings": { "title": "SERVICIOS", "header_size": "h2", "align": "center", "typography_typography": "custom", "typography_font_family": "Zen Dots" }
+						},
+						{
+							"elType": "widget",
+							"widgetType": "html",
+							"settings": {
+								"html": "<div class=\"services-grid-ele\">\n<div class=\"service-card\">\n<div class=\"service-inner\">\n<div class=\"service-visual\" style=\"background-image: url('https://ingedaca.com/wp-content/uploads/2025/01/Design-Ingedaca.jpeg')\"></div>\n<div class=\"service-body\">\n<h3>Ingeniería Digital</h3>\n<p style=\"margin-bottom: 20px;\">Diseño y simulación avanzada para optimizar procesos industriales críticos.</p>\n<a href=\"https://ingedaca.com/services/engineering/\" style=\"color: #f43f07; text-decoration: none; font-weight: bold;\">Saber Más</a>\n</div>\n</div>\n</div>\n<div class=\"service-card\">\n<div class=\"service-inner\">\n<div class=\"service-visual\" style=\"background-image: url('https://ingedaca.com/wp-content/uploads/2024/07/Assets-Ingedaca.jpeg')\"></div>\n<div class=\"service-body\">\n<h3>Infraestructura</h3>\n<p style=\"margin-bottom: 20px;\">Creación de bases sólidas y operaciones para soluciones industriales escalables.</p>\n<a href=\"https://ingedaca.com/services/infrastructure/\" style=\"color: #f43f07; text-decoration: none; font-weight: bold;\">Saber Más</a>\n</div>\n</div>\n</div>\n<div class=\"service-card\">\n<div class=\"service-inner\">\n<div class=\"service-visual\" style=\"background-image: url('https://ingedaca.com/wp-content/uploads/2025/01/Industrial-Automation.jpeg')\"></div>\n<div class=\"service-body\">\n<h3>Sistemas</h3>\n<p style=\"margin-bottom: 20px;\">Conectamos hardware y software para ecosistemas operativos unificados.</p>\n<a href=\"https://ingedaca.com/services/integration/\" style=\"color: #f43f07; text-decoration: none; font-weight: bold;\">Saber Más</a>\n</div>\n</div>\n</div>\n</div>"
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"id": "aliados_section_ing",
+			"elType": "section",
+			"settings": { "layout": "full_width", "padding": { "unit": "px", "top": "0", "bottom": "0", "isLinked": false } },
+			"elements": [
+				{
+					"elType": "column",
+					"settings": { "_column_size": 100 },
+					"elements": [
+						{
+							"elType": "widget",
+							"widgetType": "html",
+							"settings": {
+								"html": "<div class=\"aliados-marquee-wrapper\">\n<div class=\"marquee-content\">\n<img src=\"https://ingedaca.com/wp-content/uploads/2025/01/aveva-1.png\" alt=\"Aveva\">\n<img src=\"https://ingedaca.com/wp-content/uploads/2026/01/aws.png\" alt=\"AWS\">\n<img src=\"https://ingedaca.com/wp-content/uploads/2025/01/siemens-e1734746821628.png\" alt=\"Siemens\">\n<img src=\"https://ingedaca.com/wp-content/uploads/2025/01/rockwell-automation-logo-1.png\" alt=\"Rockwell\">\n<img src=\"https://ingedaca.com/wp-content/uploads/2025/01/odoo.png\" alt=\"Odoo\">\n<img src=\"https://ingedaca.com/wp-content/uploads/2025/01/Viessmann-1.png\" alt=\"Viessmann\">\n<img src=\"https://ingedaca.com/wp-content/uploads/2026/01/Digilock_Logo.png\" alt=\"Digilock\">\n<!-- Duplicamos para loop smooth -->\n<img src=\"https://ingedaca.com/wp-content/uploads/2025/01/aveva-1.png\" alt=\"Aveva\">\n<img src=\"https://ingedaca.com/wp-content/uploads/2026/01/aws.png\" alt=\"AWS\">\n<img src=\"https://ingedaca.com/wp-content/uploads/2025/01/siemens-e1734746821628.png\" alt=\"Siemens\">\n<img src=\"https://ingedaca.com/wp-content/uploads/2025/01/rockwell-automation-logo-1.png\" alt=\"Rockwell\">\n<img src=\"https://ingedaca.com/wp-content/uploads/2025/01/odoo.png\" alt=\"Odoo\">\n<img src=\"https://ingedaca.com/wp-content/uploads/2025/01/Viessmann-1.png\" alt=\"Viessmann\">\n<img src=\"https://ingedaca.com/wp-content/uploads/2026/01/Digilock_Logo.png\" alt=\"Digilock\">\n</div>\n</div>"
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"id": "form_section_ing",
+			"elType": "section",
+			"settings": { "padding": { "unit": "px", "top": "100", "bottom": "100", "isLinked": false } },
+			"elements": [
+				{
+					"elType": "column",
+					"settings": { "_column_size": 100 },
+					"elements": [
+						{
+							"elType": "widget",
+							"widgetType": "html",
+							"settings": {
+								"html": "<div class=\"form-centered-wrapper\">\n<h2 style=\"text-align: center; font-family: 'Zen Dots';\">Hablemos del Futuro</h2>\n<p style=\"text-align: center;\">Estamos listos para impulsar tu proximo proyecto industrial.</p>\n<!-- Aqui pegaria el shortcode del formulario de WP -->\n</div>"
+							}
+						}
+					]
+				}
+			]
+		}
+	]
+}
