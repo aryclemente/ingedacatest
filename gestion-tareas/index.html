@@ -272,24 +272,20 @@
     <script>
         // --- 1. AUTENTICACIÓN (MSAL.js) ---
         
-        // Se coloca un ClientID genérico como placeholder preparado para Entra ID
+        // Configuraciones empresariales de INGEDACA Entra ID
         const msalConfig = {
             auth: {
-                clientId: "TU_CLIENT_ID_DE_AZURE_AQUI", // Reemplazar en pro
-                authority: "https://login.microsoftonline.com/common",
-                redirectUri: window.location.origin
+                clientId: "eb8e349c-e3ab-4cbb-a5a9-b78fd5651947",
+                authority: "https://login.microsoftonline.com/233c092f-a76d-482f-a19f-bfd2d29add33",
+                redirectUri: window.location.origin + window.location.pathname
             }
         };
         const msalInstance = new msal.PublicClientApplication(msalConfig);
         const authedUsers = ["arianna.clemente@ingedaca.com", "federico@ingedaca.com"];
 
         async function login() {
-            // Simulador de MSAL para el contexto en el que el Client ID es genérico.
-            // En Producción, descomentar el bloque msalInstance y borrar la simulación.
-            
-            /* -- CÓDIGO MSAL REAL --
             try {
-                const loginResponse = await msalInstance.loginPopup({ scopes: ["user.read"] });
+                const loginResponse = await msalInstance.loginPopup({ scopes: ["User.Read", "Files.ReadWrite"] });
                 validateUser(loginResponse.account);
             } catch (error) {
                 if (error.errorCode === "user_cancelled") {
@@ -298,14 +294,22 @@
                     alert("Error Autenticación: " + error.message);
                 }
             }
-            */
+        }
 
-            // -- SIMULADOR TEMPORAL PARA PRUEBAS UI --
-            const email = prompt("Simulador SSO: Ingresa correo de INGEDACA\n(Ej. arianna.clemente@ingedaca.com)");
-            if (email) {
-                validateUser({ username: email, name: email.split('@')[0].toUpperCase() });
-            } else {
-                console.log("Login user_cancelled simulado");
+        let accessToken = "";
+        const excelEndpoint = "https://graph.microsoft.com/v1.0/sites/ingedacainc.sharepoint.com/drive/root:/Ingedaca_Ops_DB.xlsx:/workbook/tables/TablaTareas/rows";
+
+        async function getAccessToken() {
+            const request = {
+                scopes: ["User.Read", "Files.ReadWrite"],
+                account: msalInstance.getAllAccounts()[0]
+            };
+            try {
+                const response = await msalInstance.acquireTokenSilent(request);
+                accessToken = response.accessToken;
+            } catch (error) {
+                const popupResponse = await msalInstance.acquireTokenPopup(request);
+                accessToken = popupResponse.accessToken;
             }
         }
 
@@ -314,16 +318,16 @@
             if (authedUsers.includes(userEmail)) {
                 // UI Transitions
                 document.getElementById('login-screen').classList.add('opacity-0');
-                setTimeout(() => {
+                setTimeout(async () => {
                     document.getElementById('login-screen').classList.add('hidden');
                     document.getElementById('app-content').classList.remove('hidden');
                     document.getElementById('user-profile-name').innerText = account.name;
                     document.getElementById('user-profile-email').innerText = account.username;
                     
-                    // Iniciar App
-                    loadData();
+                    // Iniciar App conectando a la API
+                    loadLocalProjects();
+                    await loadTasksFromExcel();
                     renderProjects();
-                    renderTasks();
                     renderFolders();
                     switchTab('tareas');
                 }, 300);
@@ -333,7 +337,6 @@
         }
 
         function logout() {
-            // msalInstance.logoutPopup();
             location.reload();
         }
 
@@ -343,32 +346,58 @@
         let projects = [];
         let tasks = [];
 
-        // Inicializar datos base si localStorage está vacío
-        function loadData() {
+        function loadLocalProjects() {
             const p = localStorage.getItem('ingops_projects');
-            const t = localStorage.getItem('ingops_tasks');
-            
-            if (p && t) {
+            if (p) {
                 projects = JSON.parse(p);
-                tasks = JSON.parse(t);
             } else {
-                // Datos de prueba iniciales
                 projects = [
                     { id: '2026-001', name: 'Misión Siemens', status: 'Activo' },
                     { id: '2026-002', name: 'Procura Feria', status: 'Activo' }
                 ];
-                tasks = [
-                    { projectId: '2026-001', task: 'Cartas Migratorias', owner: 'Gustavo', priority: 'Alta', status: 'Hecho', dueDate: '2026-03-25' },
-                    { projectId: '2026-001', task: 'Logística Ejecutivos', owner: 'Enrique', priority: 'Media', status: 'En Curso', dueDate: '2026-03-22' },
-                    { projectId: '2026-002', task: 'Compra Porcelanato', owner: 'Gustavo', priority: 'Alta', status: 'Nuevo', dueDate: '2026-03-27' }
-                ];
-                saveData();
+                saveLocalProjects();
             }
         }
 
-        function saveData() {
+        function saveLocalProjects() {
             localStorage.setItem('ingops_projects', JSON.stringify(projects));
-            localStorage.setItem('ingops_tasks', JSON.stringify(tasks));
+        }
+
+        async function loadTasksFromExcel() {
+            try {
+                await getAccessToken();
+                const res = await fetch(excelEndpoint, {
+                    headers: { "Authorization": `Bearer ${accessToken}` }
+                });
+                
+                if (!res.ok) {
+                    console.error("No se pudo cargar la tabla de Excel.");
+                    loadLocalTasksFallback();
+                    return;
+                }
+                
+                const data = await res.json();
+                tasks = data.value.map(row => {
+                    return {
+                        projectId: row.values[0][0] || "",
+                        task: row.values[0][1] || "",
+                        owner: row.values[0][2] || "",
+                        priority: row.values[0][3] || "",
+                        status: row.values[0][4] || "",
+                        dueDate: row.values[0][5] || ""
+                    };
+                });
+                renderTasks();
+            } catch (e) {
+                console.error("Hubo un fallo crítico conectando con Graph API", e);
+                loadLocalTasksFallback();
+            }
+        }
+
+        function loadLocalTasksFallback() {
+            const t = localStorage.getItem('ingops_tasks');
+            if (t) tasks = JSON.parse(t);
+            renderTasks();
         }
 
         const folders = [
@@ -410,7 +439,7 @@
                 name: 'Nuevo Proyecto',
                 status: 'Activo'
             });
-            saveData();
+            saveLocalProjects();
             renderProjects();
         }
 
@@ -422,17 +451,20 @@
                 return;
             }
             projects.splice(index, 1);
-            saveData();
+            saveLocalProjects();
             renderProjects();
         }
 
-        function updateProject(index, field, value) {
+        async function updateProject(index, field, value) {
             if (field === 'id') {
                 const oldId = projects[index].id;
-                tasks.forEach(task => { if (task.projectId === oldId) task.projectId = value; });
+                // Si cambiamos el ID del proyecto, actualizamos todas las tareas relacionadas en lote
+                for (let i = 0; i < tasks.length; i++) {
+                    if(tasks[i].projectId === oldId) await updateTask(i, 'projectId', value);
+                }
             }
             projects[index][field] = value;
-            saveData();
+            saveLocalProjects();
             renderProjects();
         }
 
@@ -557,33 +589,77 @@
             updateStats();
         }
 
-        function addTask() {
+        async function addTask() {
             if (projects.length === 0) {
                 alert("Primero debes crear un proyecto en la pestaña de Proyectos.");
                 return switchTab('proyectos');
             }
-            tasks.push({
-                projectId: projects[0].id,
-                task: 'Nueva Tarea',
-                owner: defaultResponsables[0],
-                priority: 'Baja',
-                status: 'Nuevo',
-                dueDate: ''
-            });
-            saveData();
+            
+            const newTask = {
+                projectId: projects[0].id, task: 'Nueva Tarea', owner: defaultResponsables[0], priority: 'Baja', status: 'Nuevo', dueDate: ''
+            };
+            
+            // Actualización UI optimista
+            tasks.push(newTask);
             renderTasks();
+            
+            // API POST
+            try {
+                await getAccessToken();
+                await fetch(excelEndpoint, {
+                    method: "POST",
+                    headers: { "Authorization": `Bearer ${accessToken}`, "Content-Type": "application/json" },
+                    body: JSON.stringify({ "values": [[newTask.projectId, newTask.task, newTask.owner, newTask.priority, newTask.status, newTask.dueDate]] })
+                });
+            } catch (e) {
+                console.error("Error guardando nueva tarea en SharePoint", e);
+            }
         }
 
-        function removeTask(index) {
+        async function removeTask(index) {
+            // Actualización UI optimista
             tasks.splice(index, 1);
-            saveData();
             renderTasks();
+            
+            // API DELETE
+            try {
+                await getAccessToken();
+                const itemEndpoint = `${excelEndpoint}/itemAt(index=${index})`;
+                await fetch(itemEndpoint, { method: "DELETE", headers: { "Authorization": `Bearer ${accessToken}` } });
+                // Re-sincronizamos en segundo plano
+                await loadTasksFromExcel(); 
+            } catch (e) {
+                console.error("Error eliminando tarea en SharePoint", e);
+            }
         }
 
-        function updateTask(index, field, value) {
+        async function updateTask(index, field, value) {
+            // Actualización UI optimista
             tasks[index][field] = value;
-            saveData();
             renderTasks();
+            
+            // Actualizamos fallback local de seguridad
+            localStorage.setItem('ingops_tasks', JSON.stringify(tasks));
+            
+            // API PATCH
+            try {
+                await getAccessToken();
+                const itemEndpoint = `${excelEndpoint}/itemAt(index=${index})`;
+                const targetTask = tasks[index];
+                
+                await fetch(itemEndpoint, {
+                    method: "PATCH",
+                    headers: { "Authorization": `Bearer ${accessToken}`, "Content-Type": "application/json" },
+                    body: JSON.stringify({ 
+                        "values": [[
+                            targetTask.projectId, targetTask.task, targetTask.owner, 
+                            targetTask.priority, targetTask.status, targetTask.dueDate
+                        ]]
+                    })
+                });
+            } catch (e) {
+                console.error("Error actualizando celda en SharePoint", e);
+            }
         }
 
         function exportCSV() {
