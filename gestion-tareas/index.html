@@ -41,6 +41,10 @@
         .status-bloqueado { background-color: #fee2e2; color: #991b1b; }
         .status-hecho { background-color: #dcfce7; color: #166534; }
         
+        .status-activo { background-color: #dbeafe; color: #1e40af; }
+        .status-completado { background-color: #dcfce7; color: #166534; }
+        .status-cancelado { background-color: #f3f4f6; color: #374151; }
+        
         /* Priority Indication (Ingedaca colors) */
         .priority-alta { border-left: 4px solid #E7472C !important; }
         .priority-media { border-left: 4px solid #f59e0b !important; }
@@ -103,8 +107,8 @@
                 <div class="flex items-center gap-4 md:gap-8 h-full">
                     <!-- Branding -->
                     <div class="flex items-center gap-2">
-                        <span class="bg-ingedaca-orange text-white px-2 py-1 rounded text-sm shadow-sm font-display">IN</span>
-                        <span class="font-display text-ingedaca-carbon hidden md:block text-sm">SECURE OPS</span>
+                        <img src="../assets/images/logo/LOGO.png" alt="Ingedaca Logo" class="h-8">
+                        <span class="font-display text-ingedaca-carbon hidden md:block text-sm">Gestión de Proyectos</span>
                     </div>
                     
                     <!-- Navigation Tabs -->
@@ -150,7 +154,7 @@
             <!-- VIEW: PROYECTOS -->
             <div id="view-proyectos" class="hidden">
                 <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-xl font-display text-ingedaca-carbon">Matriz de Proyectos Activos</h2>
+                    <h2 class="text-xl font-display text-ingedaca-carbon">Matriz de Proyectos</h2>
                     <button onclick="addProject()" class="bg-ingedaca-blue hover:bg-blue-800 text-white px-4 py-2 rounded-lg transition shadow-md flex items-center gap-2 font-medium text-sm">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
                         Añadir Registro
@@ -163,6 +167,7 @@
                                 <tr class="bg-ingedaca-silver/10 border-b border-ingedaca-silver/30">
                                     <th class="p-4 text-xs font-semibold text-ingedaca-carbon uppercase tracking-wider">Código (ID)</th>
                                     <th class="p-4 text-xs font-semibold text-ingedaca-carbon uppercase tracking-wider">Nombre del Proyecto</th>
+                                    <th class="p-4 text-xs font-semibold text-ingedaca-carbon uppercase tracking-wider">Encargado</th>
                                     <th class="p-4 text-xs font-semibold text-ingedaca-carbon uppercase tracking-wider">Estatus</th>
                                     <th class="p-4 text-xs font-semibold text-ingedaca-carbon uppercase tracking-wider w-10"></th>
                                 </tr>
@@ -301,7 +306,9 @@
         }
 
         let accessToken = "";
-        const excelEndpoint = "https://graph.microsoft.com/v1.0/sites/ingedacainc.sharepoint.com/drive/root:/Ingedaca_Ops_DB.xlsx:/workbook/tables/TablaTareas/rows";
+        // Apuntando a tu OneDrive directamente (asegúrate de darle permiso al gerente en el archivo excel)
+        const propietario = "arianna.clemente@ingedaca.com"; // <-- Pon aquí tu correo si es distinto
+        const excelEndpoint = `https://graph.microsoft.com/v1.0/users/${propietario}/drive/root:/Ingedaca_Ops_DB.xlsx:/workbook/tables/TablaTareas/rows`;
 
         async function getAccessToken() {
             const request = {
@@ -384,8 +391,8 @@
                 projects = JSON.parse(p);
             } else {
                 projects = [
-                    { id: '2026-001', name: 'Misión Siemens', status: 'Activo' },
-                    { id: '2026-002', name: 'Procura Feria', status: 'Activo' }
+                    { id: '2026-001', name: 'Misión Siemens', status: 'Activo', owner: 'Gustavo' },
+                    { id: '2026-002', name: 'Procura Feria', status: 'Activo', owner: 'Enrique' }
                 ];
                 saveLocalProjects();
             }
@@ -469,7 +476,8 @@
             projects.push({
                 id: `2026-00${projects.length + 1}`,
                 name: 'Nuevo Proyecto',
-                status: 'Activo'
+                status: 'Activo',
+                owner: defaultResponsables[0]
             });
             saveLocalProjects();
             renderProjects();
@@ -505,13 +513,23 @@
             body.innerHTML = '';
 
             projects.forEach((proj, index) => {
+                let ownerOptions = defaultResponsables.map(r => 
+                    `<option value="${r}" ${proj.owner === r ? 'selected' : ''}>${r}</option>`
+                ).join('');
+
                 const row = document.createElement('tr');
                 row.className = `hover:bg-white transition-all border-b border-ingedaca-silver/10 hover:shadow-md`;
                 row.innerHTML = `
                     <td class="p-4"><input type="text" class="bg-transparent w-full outline-none font-semibold text-ingedaca-blue focus:border-b focus:border-ingedaca-orange" value="${proj.id}" onchange="updateProject(${index}, 'id', this.value)"></td>
                     <td class="p-4"><input type="text" class="bg-transparent w-full outline-none font-medium text-ingedaca-carbon focus:border-b focus:border-ingedaca-orange" value="${proj.name}" onchange="updateProject(${index}, 'name', this.value)"></td>
                     <td class="p-4">
-                        <select class="bg-transparent w-full p-2 rounded outline-none border border-transparent focus:border-ingedaca-silver" onchange="updateProject(${index}, 'status', this.value)">
+                        <select class="bg-transparent w-full p-2 outline-none border border-transparent focus:border-ingedaca-silver rounded text-sm" onchange="updateProject(${index}, 'owner', this.value)">
+                            <option value="">Sin Asignar</option>
+                            ${ownerOptions}
+                        </select>
+                    </td>
+                    <td class="p-4">
+                        <select class="status-${proj.status.toLowerCase().replace(' ', '-')} w-full p-2 rounded shadow-sm font-semibold text-xs border border-white outline-none focus:ring-1 focus:ring-ingedaca-orange cursor-pointer" onchange="updateProject(${index}, 'status', this.value)">
                             <option value="Activo" ${proj.status === 'Activo' ? 'selected' : ''}>Activo</option>
                             <option value="Completado" ${proj.status === 'Completado' ? 'selected' : ''}>Completado</option>
                             <option value="Cancelado" ${proj.status === 'Cancelado' ? 'selected' : ''}>Cancelado</option>

@@ -32,11 +32,19 @@ Este paso autoriza a tu aplicación (en Vercel) a solicitar inicios de sesión y
 5. **Tipos de cuentas:** Selecciona "Solo las cuentas de este directorio organizativo (INGEDACA)".
 6. **URI de redirección:**
    - Selecciona la plataforma: **Aplicación de página única (SPA)**.
-   - Coloca la URL donde probarás. P. ej.: `http://localhost:5500` para pruebas locales, o `https://tu-app.vercel.app` para Vercel. (Puedes agregar ambas).
+   - Coloca la URL donde probarás. P. ej.: `http://localhost:5500` para pruebas locales, o `https://ingedacatest.vercel.app/gestion-tareas/index.html` para Vercel. (Puedes agregar ambas).
 7. Dale a **Registrar**.
 
 > [!IMPORTANT]
-> Una vez registrada, copia el **Id. de aplicación (cliente)** y el **Id. de directorio (inquilino)**. Lo necesitaremos para el código.
+> Una vez registrada, copia el **Id. de aplicación (cliente)** eb8e349c-e3ab-4cbb-a5a9-b78fd5651947
+
+y el **Id. de directorio (inquilino)**
+233c092f-a76d-482f-a19f-bfd2d29add33
+. Lo necesitaremos para el código.
+
+Identificador de objeto
+:
+9d4508d3-2ab4-440e-b65d-8e4e5d1366c0
 
 ---
 
