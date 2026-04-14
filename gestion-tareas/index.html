@@ -318,7 +318,7 @@
 
         async function getAccessToken() {
             const request = {
-                scopes: ["User.Read", "Files.ReadWrite.All"],
+                scopes: ["User.Read", "Files.ReadWrite"],
                 account: msalInstance.getAllAccounts()[0]
             };
             try {
