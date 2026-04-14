@@ -248,6 +248,7 @@
                     <button onclick="setTaskView('table')" id="btn-view-table" class="px-4 py-2 bg-ingedaca-blue text-white rounded-lg text-sm font-semibold whitespace-nowrap transition-all shadow">Vista Tabla</button>
                     <button onclick="setTaskView('kanban-status')" id="btn-view-kanban-status" class="px-4 py-2 bg-transparent text-ingedaca-carbon rounded-lg text-sm font-medium hover:bg-white whitespace-nowrap transition-all">Kanban (Estatus)</button>
                     <button onclick="setTaskView('kanban-owner')" id="btn-view-kanban-owner" class="px-4 py-2 bg-transparent text-ingedaca-carbon rounded-lg text-sm font-medium hover:bg-white whitespace-nowrap transition-all">Kanban (Encargado)</button>
+                    <button onclick="setTaskView('kanban-project')" id="btn-view-kanban-project" class="px-4 py-2 bg-transparent text-ingedaca-carbon rounded-lg text-sm font-medium hover:bg-white whitespace-nowrap transition-all">Kanban (Proyecto)</button>
                     <button onclick="setTaskView('gantt')" id="btn-view-gantt" class="px-4 py-2 bg-transparent text-ingedaca-carbon rounded-lg text-sm font-medium hover:bg-white whitespace-nowrap transition-all">Diagrama Gantt</button>
                 </div>
 
@@ -259,13 +260,13 @@
                                 <tr class="bg-ingedaca-silver/10 border-b border-ingedaca-silver/30">
                                     <th class="p-3 text-[11px] font-bold text-ingedaca-carbon uppercase tracking-wider min-w-[150px]">Proyecto</th>
                                     <th class="p-3 text-[11px] font-bold text-ingedaca-carbon uppercase tracking-wider min-w-[200px]">Tarea</th>
-                                    <th class="p-3 text-[11px] font-bold text-ingedaca-carbon uppercase tracking-wider min-w-[200px]">Descripción</th>
                                     <th class="p-3 text-[11px] font-bold text-ingedaca-carbon uppercase tracking-wider">Encargado</th>
                                     <th class="p-3 text-[11px] font-bold text-ingedaca-carbon uppercase tracking-wider">Prioridad</th>
                                     <th class="p-3 text-[11px] font-bold text-ingedaca-carbon uppercase tracking-wider">Estatus</th>
                                     <th class="p-3 text-[11px] font-bold text-ingedaca-carbon uppercase tracking-wider">Inicio</th>
                                     <th class="p-3 text-[11px] font-bold text-ingedaca-carbon uppercase tracking-wider">Límite</th>
                                     <th class="p-3 text-[11px] font-bold text-ingedaca-carbon uppercase tracking-wider text-center">GAP</th>
+                                    <th class="p-3 text-[11px] font-bold text-ingedaca-carbon uppercase tracking-wider min-w-[200px]">Descripción</th>
                                     <th class="p-3 w-10"></th>
                                 </tr>
                             </thead>
@@ -281,6 +282,10 @@
 
                 <!-- KANBAN OWNER VIEW -->
                 <div id="wrapper-view-kanban-owner" class="hidden flex gap-4 overflow-x-auto pb-4">
+                </div>
+
+                <!-- KANBAN PROJECT VIEW -->
+                <div id="wrapper-view-kanban-project" class="hidden flex gap-4 overflow-x-auto pb-4">
                 </div>
 
                 <!-- GANTT VIEW -->
@@ -310,6 +315,70 @@
                 <div id="noResults" class="hidden text-center py-12 glass-card rounded-2xl mt-4">
                     <p class="text-ingedaca-carbon text-lg">Directorio no encontrado para ese criterio.</p>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TASK MODAL -->
+    <div id="task-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 hidden backdrop-blur-sm p-4">
+        <div class="bg-white p-6 rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-display text-ingedaca-carbon">Detalles de la Tarea</h3>
+                <button onclick="closeTaskModal()" class="text-gray-500 hover:text-red-500 transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+            <input type="hidden" id="modal-task-index">
+            <div class="space-y-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="text-[10px] font-bold text-gray-400 uppercase tracking-wide">Proyecto Asignado</label>
+                        <select id="modal-project" class="w-full p-2 mt-1 border border-ingedaca-silver/30 rounded focus:border-ingedaca-orange outline-none text-sm font-semibold text-ingedaca-blue" onchange="modalSave()"></select>
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-bold text-gray-400 uppercase tracking-wide">Título de la Tarea</label>
+                        <input type="text" id="modal-task" class="w-full p-2 mt-1 border border-ingedaca-silver/30 rounded focus:border-ingedaca-orange outline-none text-sm font-medium" onchange="modalSave()">
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                    <div>
+                        <label class="text-[10px] font-bold text-gray-400 uppercase tracking-wide">Encargado</label>
+                        <select id="modal-owner" class="w-full p-2 mt-1 border border-ingedaca-silver/30 rounded focus:border-ingedaca-orange outline-none text-sm" onchange="modalSave()"></select>
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-bold text-gray-400 uppercase tracking-wide">Prioridad</label>
+                        <select id="modal-priority" class="w-full p-2 mt-1 border border-ingedaca-silver/30 rounded focus:border-ingedaca-orange outline-none text-sm" onchange="modalSave()">
+                            <option value="Alta">Alta</option><option value="Media">Media</option><option value="Baja">Baja</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-bold text-gray-400 uppercase tracking-wide">Estatus Actual</label>
+                        <select id="modal-status" class="w-full p-2 mt-1 border border-ingedaca-silver/30 rounded focus:border-ingedaca-orange outline-none text-sm font-semibold" onchange="modalSave()">
+                            <option value="Nuevo">Nuevo</option><option value="En Curso">En Curso</option>
+                            <option value="Bloqueado">Bloqueado</option><option value="Hecho">Hecho</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-bold text-gray-400 uppercase tracking-wide">Inicio</label>
+                        <input type="date" id="modal-start" class="w-full p-2 mt-1 border border-ingedaca-silver/30 rounded focus:border-ingedaca-orange outline-none text-sm" onchange="modalSave()">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="text-[10px] font-bold text-gray-400 uppercase tracking-wide">Límite</label>
+                        <input type="date" id="modal-end" class="w-full p-2 mt-1 border border-ingedaca-silver/30 rounded focus:border-ingedaca-orange outline-none text-sm" onchange="modalSave()">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="text-[10px] font-bold text-gray-400 uppercase tracking-wide">Descripción Detallada</label>
+                    <textarea id="modal-desc" class="w-full p-3 mt-1 border border-ingedaca-silver/30 rounded focus:border-ingedaca-orange outline-none text-sm h-32 resize-none" onchange="modalSave()" placeholder="Anota aquí las especificaciones de esta tarea..."></textarea>
+                </div>
+            </div>
+            <div class="mt-6 flex justify-end">
+                <button onclick="closeTaskModal()" class="bg-ingedaca-blue text-white px-6 py-2 rounded-lg font-medium hover:bg-blue-800 transition">Cerrar Visualización</button>
             </div>
         </div>
     </div>
@@ -628,14 +697,17 @@
         
         function setTaskView(viewId) {
             activeTaskView = viewId;
-            ['table', 'kanban-status', 'kanban-owner', 'gantt'].forEach(id => {
-                document.getElementById('wrapper-view-' + id).classList.add('hidden');
-                document.getElementById('btn-view-' + id).className = "px-4 py-2 bg-transparent text-ingedaca-carbon rounded-lg text-sm font-medium hover:bg-white whitespace-nowrap transition-all";
+            ['table', 'kanban-status', 'kanban-owner', 'kanban-project', 'gantt'].forEach(id => {
+                const el = document.getElementById('wrapper-view-' + id);
+                if(el) el.classList.add('hidden');
+                const btn = document.getElementById('btn-view-' + id);
+                if(btn) btn.className = "px-4 py-2 bg-transparent text-ingedaca-carbon rounded-lg text-sm font-medium hover:bg-white whitespace-nowrap transition-all";
             });
             
-            document.getElementById('wrapper-view-' + viewId).classList.remove('hidden');
-            let btn = document.getElementById('btn-view-' + viewId);
-            btn.className = "px-4 py-2 bg-ingedaca-blue text-white rounded-lg text-sm font-semibold whitespace-nowrap transition-all shadow";
+            const wTarget = document.getElementById('wrapper-view-' + viewId);
+            if(wTarget) wTarget.classList.remove('hidden');
+            let btnTarget = document.getElementById('btn-view-' + viewId);
+            if(btnTarget) btnTarget.className = "px-4 py-2 bg-ingedaca-blue text-white rounded-lg text-sm font-semibold whitespace-nowrap transition-all shadow";
             
             if(viewId === 'gantt') renderGantt();
         }
@@ -645,16 +717,97 @@
             renderTasks();
             renderKanbanStatus();
             renderKanbanOwner();
+            renderKanbanProject();
             if(activeTaskView === 'gantt') renderGantt();
         }
 
+        // --- SISTEMA DRAG AND DROP KANBAN ---
+        function dragStart(ev, index) {
+            ev.dataTransfer.setData("taskIndex", index);
+        }
+
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        async function dropCard(ev, field, targetValue) {
+            ev.preventDefault();
+            let dragIndex = ev.dataTransfer.getData("taskIndex");
+            if (dragIndex !== "") {
+                if (tasks[dragIndex][field] !== targetValue) {
+                    await updateTask(dragIndex, field, targetValue);
+                    if (document.getElementById('task-modal')) {
+                        // The UI will re-render optimistic
+                    }
+                }
+            }
+        }
+
+        // --- MODAL LÓGICA ---
+        function openTaskModal(index) {
+            const t = tasks[index];
+            document.getElementById('modal-task-index').value = index;
+            
+            let pOptions = projects.map(p => `<option value="${p.id}" ${t.projectId === p.id ? 'selected' : ''}>${p.id} - ${p.name.substring(0,15)}</option>`).join('');
+            if(!projects.find(p => p.id === t.projectId)) pOptions += `<option value="${t.projectId}" selected>${t.projectId} (Archivado)</option>`;
+            document.getElementById('modal-project').innerHTML = pOptions;
+            
+            let oOptions = `<option value="">N/A</option>` + defaultResponsables.map(r => `<option value="${r}" ${t.owner === r ? 'selected' : ''}>${r}</option>`).join('');
+            document.getElementById('modal-owner').innerHTML = oOptions;
+
+            document.getElementById('modal-task').value = t.task;
+            document.getElementById('modal-priority').value = t.priority;
+            document.getElementById('modal-status').value = t.status || 'Nuevo';
+            document.getElementById('modal-start').value = t.assignedDate || '';
+            document.getElementById('modal-end').value = t.dueDate || '';
+            document.getElementById('modal-desc').value = t.description || '';
+            
+            document.getElementById('task-modal').classList.remove('hidden');
+        }
+
+        function closeTaskModal() {
+            document.getElementById('task-modal').classList.add('hidden');
+        }
+
+        async function modalSave() {
+            const index = document.getElementById('modal-task-index').value;
+            tasks[index].projectId = document.getElementById('modal-project').value;
+            tasks[index].task = document.getElementById('modal-task').value;
+            tasks[index].owner = document.getElementById('modal-owner').value;
+            tasks[index].priority = document.getElementById('modal-priority').value;
+            tasks[index].status = document.getElementById('modal-status').value;
+            tasks[index].assignedDate = document.getElementById('modal-start').value;
+            tasks[index].dueDate = document.getElementById('modal-end').value;
+            tasks[index].description = document.getElementById('modal-desc').value;
+            
+            renderAllViews();
+            localStorage.setItem('ingops_tasks', JSON.stringify(tasks));
+            
+            try {
+                const itemEndpoint = `${excelEndpointTareas}/itemAt(index=${index})`;
+                const targetTask = tasks[index];
+                
+                fetch(itemEndpoint, {
+                    method: "PATCH",
+                    headers: { "Authorization": `Bearer ${accessToken}`, "Content-Type": "application/json" },
+                    body: JSON.stringify({ 
+                        "values": [[
+                            targetTask.projectId, targetTask.task, targetTask.description, targetTask.owner, 
+                            targetTask.priority, targetTask.status, targetTask.assignedDate, targetTask.dueDate
+                        ]]
+                    })
+                });
+            } catch(e) { }
+        }
+
         function buildCard(item, index) {
-            return `<div class="bg-white/80 p-4 mb-3 rounded-xl shadow-sm border-l-4 priority-${item.priority.toLowerCase()} border border-ingedaca-silver/20 cursor-pointer hover:shadow-md transition">
+            return `<div draggable="true" ondragstart="dragStart(event, ${index})" onclick="openTaskModal(${index})" class="bg-white/80 p-4 mb-3 rounded-xl shadow-sm border-l-4 priority-${item.priority ? item.priority.toLowerCase() : 'baja'} border border-ingedaca-silver/20 cursor-pointer hover:shadow-md transition relative">
                 <p class="text-[10px] text-ingedaca-blue font-bold mb-1">${item.projectId}</p>
-                <p class="text-sm font-medium text-ingedaca-carbon leading-tight mb-2">${item.task}</p>
+                <p class="text-sm font-medium text-ingedaca-carbon leading-tight mb-2 pr-4">${item.task}</p>
+                <p class="text-[11px] text-gray-500 mb-2 truncate">${item.description || ''}</p>
                 <div class="flex justify-between items-center text-[10px] text-ingedaca-silver mt-2">
-                    <span class="bg-gray-100 px-2 py-1 rounded-full">${item.owner}</span>
-                    <span>${item.dueDate ? item.dueDate : 'Sin fecha'}</span>
+                    <span class="bg-gray-100 px-2 py-1 rounded-full whitespace-nowrap text-zinc-700">${item.owner || 'N/A'}</span>
+                    <span class="whitespace-nowrap ml-1">${item.dueDate ? item.dueDate : 'No límite'}</span>
                 </div>
             </div>`;
         }
@@ -670,7 +823,7 @@
                 
                 html += `<div class="kanban-col glass-card rounded-2xl flex-shrink-0 flex flex-col h-[70vh]">
                     <div class="p-3 ${bgHead} font-bold text-sm text-center border-b border-white/50 rounded-t-2xl">${st} (${sTasks.length})</div>
-                    <div class="p-3 overflow-y-auto flex-1">
+                    <div class="p-3 overflow-y-auto flex-1 min-h-[50px] bg-white/20 transition hover:bg-white/40" ondragover="allowDrop(event)" ondrop="dropCard(event, 'status', '${st}')">
                         ${sTasks.map(t => buildCard(t, tasks.indexOf(t))).join('')}
                     </div>
                 </div>`;
@@ -685,9 +838,25 @@
             defaultResponsables.forEach(own => {
                 const oTasks = tasks.filter(t => t.owner === own);
                 html += `<div class="kanban-col glass-card rounded-2xl flex-shrink-0 flex flex-col h-[70vh]">
-                    <div class="p-3 bg-blue-50 text-ingedaca-blue font-bold text-sm text-center border-b border-white/50 rounded-t-2xl">${own} (${oTasks.length})</div>
-                    <div class="p-3 overflow-y-auto flex-1">
+                    <div class="p-3 bg-blue-50 text-ingedaca-blue font-bold text-sm text-center border-b border-white/50 rounded-t-2xl">${own || 'N/A'} (${oTasks.length})</div>
+                    <div class="p-3 overflow-y-auto flex-1 min-h-[50px] bg-white/20 transition hover:bg-white/40" ondragover="allowDrop(event)" ondrop="dropCard(event, 'owner', '${own}')">
                         ${oTasks.map(t => buildCard(t, tasks.indexOf(t))).join('')}
+                    </div>
+                </div>`;
+            });
+            container.innerHTML = html;
+        }
+
+        function renderKanbanProject() {
+            const container = document.getElementById('wrapper-view-kanban-project');
+            let html = '';
+            
+            projects.forEach(p => {
+                const pTasks = tasks.filter(t => t.projectId === p.id);
+                html += `<div class="kanban-col glass-card rounded-2xl flex-shrink-0 flex flex-col h-[70vh]">
+                    <div class="p-3 bg-slate-800 text-white font-bold text-sm text-center border-b border-white/50 rounded-t-2xl">${p.id} - ${p.name.substring(0,12)} (${pTasks.length})</div>
+                    <div class="p-3 overflow-y-auto flex-1 min-h-[50px] bg-white/20 transition hover:bg-slate-50/40" ondragover="allowDrop(event)" ondrop="dropCard(event, 'projectId', '${p.id}')">
+                        ${pTasks.map(t => buildCard(t, tasks.indexOf(t))).join('')}
                     </div>
                 </div>`;
             });
@@ -771,7 +940,6 @@
                         </select>
                     </td>
                     <td class="p-3"><input type="text" class="bg-transparent w-full p-2 outline-none font-medium text-ingedaca-carbon focus:border focus:border-ingedaca-orange rounded text-[11px]" value="${item.task}" onchange="updateTask(${index}, 'task', this.value)"></td>
-                    <td class="p-3"><textarea class="bg-transparent w-full p-1 outline-none font-medium text-[10px] text-ingedaca-carbon focus:border focus:border-ingedaca-orange rounded resize-none h-12" onchange="updateTask(${index}, 'description', this.value)">${item.description || ''}</textarea></td>
                     <td class="p-3">
                         <select class="bg-transparent w-full p-2 outline-none border border-transparent focus:border-ingedaca-silver rounded text-[11px]" onchange="updateTask(${index}, 'owner', this.value)">
                             <option value="">N/A</option>
@@ -796,8 +964,9 @@
                     <td class="p-3"><input type="date" class="bg-white/50 w-full text-[10px] p-2 focus:ring-1 focus:ring-ingedaca-orange outline-none rounded text-ingedaca-carbon border border-ingedaca-silver/30" value="${item.assignedDate || ''}" onchange="updateTask(${index}, 'assignedDate', this.value)"></td>
                     <td class="p-3"><input type="date" class="bg-white/50 w-full text-[10px] p-2 focus:ring-1 focus:ring-ingedaca-orange outline-none rounded text-ingedaca-carbon border border-ingedaca-silver/30" value="${item.dueDate || ''}" onchange="updateTask(${index}, 'dueDate', this.value)"></td>
                     <td class="p-3 text-center"><span class="${daysClass} bg-white px-2 py-1 rounded-full shadow-sm text-[10px]">${days}</span></td>
+                    <td class="p-3"><textarea class="bg-transparent w-full p-1 outline-none font-medium text-[10px] text-ingedaca-carbon focus:border focus:border-ingedaca-orange rounded resize-none h-12" onchange="updateTask(${index}, 'description', this.value)" placeholder="Descripción...">${item.description || ''}</textarea></td>
                     <td class="p-3 text-right">
-                        <button onclick="removeTask(${index})" class="text-ingedaca-silver hover:text-ingedaca-orange transition bg-white/50 p-2 rounded-lg border border-transparent hover:border-orange-200">
+                        <button onclick="removeTask(${index})" class="text-ingedaca-silver hover:text-ingedaca-orange transition bg-white/50 p-2 rounded-lg border border-transparent hover:border-orange-200" title="Eliminar">
                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
                         </button>
                     </td>
