@@ -618,7 +618,10 @@
             tasks.forEach(t => {
                 const days = calculateDaysRemaining(t.dueDate);
                 if (days !== '-' && days < 0 && t.status !== 'Hecho') {
-                    critic            document.getElementById('stat-critical').innerText = criticalCount;
+                    criticalCount++;
+                }
+            });
+            document.getElementById('stat-critical').innerText = criticalCount;
         }
 
         let activeTaskView = 'table';
