@@ -59,7 +59,7 @@
 
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 2rem;
             max-width: 1200px;
             margin: 3rem auto 0;
@@ -133,9 +133,17 @@
         @media (max-width: 768px) {
             .alliance-intro-grid, .benefits-grid {
                 grid-template-columns: 1fr;
+                gap: 2rem;
             }
             .testimonial-box {
                 font-size: 1.4rem;
+            }
+            .alianza-hero {
+                padding: 8rem 5% 4rem;
+            }
+            .hero-logos {
+                flex-direction: column;
+                gap: 1.5rem !important;
             }
         }
     </style>
@@ -167,14 +175,14 @@
 
     <!-- Hero Section -->
     <section class="alianza-hero">
-        <div style="max-width: 1000px; margin: 0 auto;" class="reveal">
-            <div style="display: flex; justify-content: center; align-items: center; gap: 3rem; margin-bottom: 2rem;">
-                <img src="assets/images/logo/Logo Ingedaca.png" alt="Ingedaca" style="height: 60px;">
-                <span class="text-gradient" style="font-size: 2.5rem; font-weight: bold;">+</span>
-                <img src="assets/images/aliados/digi.png" alt="DigiLock" style="height: 60px; filter: brightness(0) invert(1);">
+        <div style="max-width: 1000px; margin: 0 auto; width: 100%;" class="reveal">
+            <div class="hero-logos" style="display: flex; justify-content: center; align-items: center; gap: 3rem; margin-bottom: 3rem; flex-wrap: wrap;">
+                <img src="assets/images/logo/Logo Ingedaca.png" alt="Ingedaca" style="height: 70px; object-fit: contain;">
+                <span class="text-gradient" style="font-size: 3rem; font-weight: bold; line-height: 1;">+</span>
+                <img src="assets/images/aliados/digi.png" alt="DigiLock" style="height: 120px; object-fit: contain; filter: brightness(0) invert(1);">
             </div>
-            <h1>Transforma tu Industria: <span class="text-gradient">Seguridad Inteligente sin Llaves</span></h1>
-            <p style="font-size: 1.2rem; color: #ccc; margin-bottom: 2rem;">Integrando la excelencia de Ingedaca en automatización e IoT con el liderazgo de DigiLock en cerraduras electrónicas avanzadas.</p>
+            <h1>Transforma tu Industria: <br class="hidden sm:block"><span class="text-gradient">Seguridad Inteligente sin Llaves</span></h1>
+            <p style="font-size: 1.2rem; color: #ccc; margin-bottom: 2.5rem; max-width: 800px; margin-inline: auto;">Integrando la excelencia de Ingedaca en automatización e IoT con el liderazgo de DigiLock en cerraduras electrónicas avanzadas.</p>
             <a href="#cta" class="btn-primary" style="font-size: 1.1rem; padding: 1rem 2rem;">Solicita una Demo Gratuita</a>
         </div>
     </section>
