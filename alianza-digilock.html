@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -131,23 +132,55 @@
         }
 
         @media (max-width: 768px) {
-            .alliance-intro-grid, .benefits-grid {
+
+            .alliance-intro-grid,
+            .benefits-grid {
                 grid-template-columns: 1fr;
                 gap: 2rem;
             }
+
+            .partner-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .content-section {
+                padding: 4rem 5%;
+            }
+
             .testimonial-box {
                 font-size: 1.4rem;
             }
+
             .alianza-hero {
                 padding: 8rem 5% 4rem;
             }
+
             .hero-logos {
                 flex-direction: column;
                 gap: 1.5rem !important;
             }
+
+            header {
+                padding: 1rem 5%;
+                gap: 0.5rem;
+            }
+
+            .logo-container img {
+                height: 35px !important;
+            }
+
+            .nav-actions {
+                gap: 0.5rem;
+            }
+
+            .nav-actions a.btn-primary {
+                padding: 0.4rem 0.6rem !important;
+                font-size: 0.8rem !important;
+            }
         }
     </style>
 </head>
+
 <body>
 
     <!-- Header -->
@@ -157,7 +190,7 @@
         </div>
         <nav>
             <ul>
-                <li><a href="index.html">Inicio</a></li>
+                <li><a href="alianza-digilock.html">Inicio</a></li>
                 <li><a href="#alianza">La Alianza</a></li>
                 <li><a href="#productos">Productos</a></li>
                 <li><a href="#beneficios">Beneficios</a></li>
@@ -176,14 +209,22 @@
     <!-- Hero Section -->
     <section class="alianza-hero">
         <div style="max-width: 1000px; margin: 0 auto; width: 100%;" class="reveal">
-            <div class="hero-logos" style="display: flex; justify-content: center; align-items: center; gap: 3rem; margin-bottom: 3rem; flex-wrap: wrap;">
-                <img src="assets/images/logo/Logo Ingedaca.png" alt="Ingedaca" style="height: 70px; object-fit: contain;">
+            <div class="hero-logos"
+                style="display: flex; justify-content: center; align-items: center; gap: 3rem; margin-bottom: 3rem; flex-wrap: wrap;">
+                <img src="assets/images/logo/Logo Ingedaca.png" alt="Ingedaca"
+                    style="height: 50px; object-fit: contain;">
                 <span class="text-gradient" style="font-size: 3rem; font-weight: bold; line-height: 1;">+</span>
-                <img src="assets/images/aliados/digi.png" alt="DigiLock" style="height: 120px; object-fit: contain; filter: brightness(0) invert(1);">
+                <img src="assets/images/aliados/digi.png" alt="DigiLock"
+                    style="height: 120px; object-fit: contain; filter: brightness(0) invert(1);">
             </div>
-            <h1>Transforma tu Industria: <br class="hidden sm:block"><span class="text-gradient">Seguridad Inteligente sin Llaves</span></h1>
-            <p style="font-size: 1.2rem; color: #ccc; margin-bottom: 2.5rem; max-width: 800px; margin-inline: auto;">Integrando la excelencia de Ingedaca en automatización e IoT con el liderazgo de DigiLock en cerraduras electrónicas avanzadas.</p>
-            <a href="#cta" class="btn-primary" style="font-size: 1.1rem; padding: 1rem 2rem;">Solicita una Demo Gratuita</a>
+            <h1>Transforma tu Industria: <br class="hidden sm:block"><span class="text-gradient">Seguridad
+                    Inteligente</span></h1>
+            <p style="font-size: 1.2rem; color: #ccc; margin-bottom: 2.5rem; max-width: 800px; margin-inline: auto;">
+                Integramos la excelencia de Ingedaca en automatización e IoT
+                con el liderazgo de DigiLock en cerraduras
+                electrónicas avanzadas.</p>
+            <a href="#cta" class="btn-primary" style="font-size: 1.1rem; padding: 1rem 2rem;">Solicita una Demo
+                Gratuita</a>
         </div>
     </section>
 
@@ -192,29 +233,35 @@
         <div class="alliance-intro-grid">
             <div class="partner-card reveal">
                 <h3>El Poder de INGEDACA</h3>
-                <p>Empoderamos operaciones industriales con soluciones inteligentes. Integramos automatización avanzada, Inteligencia Artificial (IA) y el Internet de las Cosas (IoT) para potenciar la eficiencia en industrias conectadas.</p>
+                <p>Empoderamos operaciones industriales con soluciones inteligentes. Integramos automatización avanzada,
+                    Inteligencia Artificial (IA) y el Internet de las Cosas (IoT) para potenciar la eficiencia en
+                    industrias conectadas.</p>
                 <div style="margin-top: 2rem;">
                     <strong style="color: #fff;">Servicios Clave:</strong>
                     <ul style="margin-top: 1rem; color: #aaa; list-style-type: none; padding-left: 0;">
-                        <li style="margin-bottom: 0.5rem;">✓ Automatización y Control Avanzado</li>
-                        <li style="margin-bottom: 0.5rem;">✓ Integración de Sistemas a medida</li>
-                        <li style="margin-bottom: 0.5rem;">✓ Gestión de Datos vía IoT en tiempo real</li>
-                        <li style="margin-bottom: 0.5rem;">✓ Modelado BIM 3D (Gemelos Digitales)</li>
-                        <li style="margin-bottom: 0.5rem;">✓ IA Personalizada para predicciones</li>
+                        <li style="margin-bottom: 0.5rem;">✓ Ingeniería digital</li>
+                        <li style="margin-bottom: 0.5rem;">✓ Infraestructura operativa</li>
+                        <li style="margin-bottom: 0.5rem;">✓ Integración de sistemas</li>
                     </ul>
                 </div>
-                <p style="margin-top: 2rem; font-size: 0.9rem; color: #888;">Llevamos proyectos llave en mano en Venezuela, Colombia, México y USA, impulsando la adaptación digital post-COVID.</p>
+                <p style="margin-top: 2rem; font-size: 0.9rem; color: #888;">Llevamos proyectos llave en mano en
+                    Venezuela, Colombia, México y USA.</p>
             </div>
-            
+
             <div class="partner-card reveal" style="transition-delay: 0.2s;">
                 <h3 style="color: #00d4ff;">La Innovación DigiLock</h3>
-                <p>Líder mundial en cerraduras electrónicas sin llave. Sus soluciones ofrecen diseños ultrafinos, instalación limpia sin cables complejos y alta resistencia con opciones ADA y certificación IP55.</p>
+                <p>Líder mundial en cerraduras electrónicas sin llave. Sus soluciones ofrecen diseños ultrafinos,
+                    instalación limpia sin cables complejos y alta resistencia con opciones ADA y certificación IP55.
+                </p>
                 <div style="margin-top: 2rem;">
                     <strong style="color: #fff;">Niveles de Gestión:</strong>
                     <ul style="margin-top: 1rem; color: #aaa; list-style-type: none; padding-left: 0;">
-                        <li style="margin-bottom: 0.5rem;">✓ <strong>Básica:</strong> Control por llave electrónica.</li>
-                        <li style="margin-bottom: 0.5rem;">✓ <strong>Avanzada:</strong> Tableta dedicada con sistema de auditoría.</li>
-                        <li style="margin-bottom: 0.5rem;">✓ <strong>En Red:</strong> Ecosistema interactivo DigiLink® en la nube, con cumplimiento estándar SOC 2.</li>
+                        <li style="margin-bottom: 0.5rem;">✓ <strong>Básica:</strong> Control por llave electrónica.
+                        </li>
+                        <li style="margin-bottom: 0.5rem;">✓ <strong>Avanzada:</strong> Tableta dedicada con sistema de
+                            auditoría.</li>
+                        <li style="margin-bottom: 0.5rem;">✓ <strong>En Red:</strong> Ecosistema interactivo DigiLink®
+                            en la nube, con cumplimiento estándar SOC 2.</li>
                     </ul>
                 </div>
             </div>
@@ -224,7 +271,9 @@
     <!-- Testimonial Section -->
     <section class="testimonial-section reveal">
         <div class="testimonial-box">
-            "Con la instalación de la línea Curve™ y la integración IoT de Ingedaca, hemos optimizado el acceso en todas nuestras plantas en tiempo real, logrando un aumento de la eficiencia operativa en más del <span class="text-gradient">20%</span>."
+            "Con la instalación de la línea Curve™ y la integración IoT de Ingedaca, hemos optimizado el acceso en todas
+            nuestras plantas en tiempo real, logrando un aumento de la eficiencia operativa en más del <span
+                class="text-gradient">20%</span>."
         </div>
         <p style="margin-top: 1rem; color: #888; font-weight: bold;">- Director de Operaciones (Sector Industrial)</p>
     </section>
@@ -235,42 +284,55 @@
             <h2>Productos <span class="text-gradient">Prioritarios</span></h2>
             <p>Soluciones diseñadas para los entornos más exigentes</p>
         </div>
-        
+
         <div class="products-grid">
             <div class="product-card reveal">
                 <span class="product-badge">Top Integración</span>
                 <h4>Curve™</h4>
                 <p><strong>Acceso:</strong> Teclado, RFID, Móvil, Llave</p>
                 <p><strong>Funciones:</strong> Uso compartido/asignado, perfil 10mm. Opciones Níquel o Negro.</p>
-                <p style="margin-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem; font-size: 0.9rem; color: #aaa;">Gestión remota, auditoría, e integración IoT total. El producto perfecto para Gemelos Digitales.</p>
+                <p
+                    style="margin-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem; font-size: 0.9rem; color: #aaa;">
+                    Gestión remota, auditoría, e integración IoT total. El producto perfecto para Gemelos Digitales.</p>
             </div>
             <div class="product-card reveal">
                 <span class="product-badge">Automatizado</span>
                 <h4>Aspire™</h4>
                 <p><strong>Acceso:</strong> Teclado, RFID, Móvil</p>
-                <p><strong>Funciones:</strong> Operación motorizada, disposición vertical/horizontal. Compatible con tableta/app.</p>
-                <p style="margin-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem; font-size: 0.9rem; color: #aaa;">Ideal para modernización de almacenes y análisis profundo de datos de acceso.</p>
+                <p><strong>Funciones:</strong> Operación motorizada, disposición vertical/horizontal. Compatible con
+                    tableta/app.</p>
+                <p
+                    style="margin-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem; font-size: 0.9rem; color: #aaa;">
+                    Ideal para modernización de almacenes y análisis profundo de datos de acceso.</p>
             </div>
             <div class="product-card reveal">
                 <span class="product-badge">Alta Resistencia</span>
                 <h4>Versa™</h4>
                 <p><strong>Acceso:</strong> Teclado, RFID</p>
                 <p><strong>Funciones:</strong> Montaje en superficie o empotrado; accionamiento por leva manual.</p>
-                <p style="margin-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem; font-size: 0.9rem; color: #aaa;">Para entornos hiper-exigentes, permitiendo un uso operativamente confiable sin contacto directo.</p>
+                <p
+                    style="margin-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem; font-size: 0.9rem; color: #aaa;">
+                    Para entornos hiper-exigentes, permitiendo un uso operativamente confiable sin contacto directo.</p>
             </div>
             <div class="product-card reveal">
                 <span class="product-badge">Manos Libres</span>
                 <h4>Orbit™</h4>
                 <p><strong>Acceso:</strong> Sin contacto RFID, Móvil</p>
                 <p><strong>Funciones:</strong> Perfil delgado "moneda", mecanismo de cierre multidireccional.</p>
-                <p style="margin-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem; font-size: 0.9rem; color: #aaa;">Alta seguridad totalmente sin manos, enfocado para áreas estériles u operaciones remotas.</p>
+                <p
+                    style="margin-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem; font-size: 0.9rem; color: #aaa;">
+                    Alta seguridad totalmente sin manos, enfocado para áreas estériles u operaciones remotas.</p>
             </div>
             <div class="product-card reveal">
                 <span class="product-badge">Versatilidad</span>
                 <h4>Pivot™ & Heredadas</h4>
                 <p><strong>Acceso:</strong> Teclado, RFID, Híbrido</p>
-                <p><strong>Funciones:</strong> Leva intuitiva (Pivot). Teclado estándar con apertura automática para upgrades (Heredadas).</p>
-                <p style="margin-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem; font-size: 0.9rem; color: #aaa;">Presupuestos accesibles, permitiendo una modernización rápida y adaptable del mobiliario existente.</p>
+                <p><strong>Funciones:</strong> Leva intuitiva (Pivot). Teclado estándar con apertura automática para
+                    upgrades (Heredadas).</p>
+                <p
+                    style="margin-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem; font-size: 0.9rem; color: #aaa;">
+                    Presupuestos accesibles, permitiendo una modernización rápida y adaptable del mobiliario existente.
+                </p>
             </div>
         </div>
     </section>
@@ -283,29 +345,40 @@
         <div class="benefits-grid">
             <div class="benefit-item reveal">
                 <h4>1. Eficiencia Operativa</h4>
-                <p>Al integrar las cerraduras inteligentes de DigiLock dentro de los ecosistemas de automatización de Ingedaca, recolectamos datos en tiempo real que alimentan IA predictiva. Esto se traduce en una reducción de los tiempos de acceso del 50%+ en flujo de personal.</p>
+                <p>Al integrar las cerraduras inteligentes de DigiLock dentro de los ecosistemas de automatización de
+                    Ingedaca, recolectamos datos en tiempo real que alimentan IA predictiva. Esto se traduce en una
+                    reducción de los tiempos de acceso del 50%+ en flujo de personal.</p>
             </div>
             <div class="benefit-item reveal" style="transition-delay: 0.1s;">
                 <h4>2. Seguridad Avanzada</h4>
-                <p>La robustez nativa de la Nube DigiLink® combinada con las rigurosas medidas de ciberseguridad industrial de Ingedaca. Permite realizar auditorías unificadas, reportes detallados y anulaciones de acceso instantáneas a nivel de toda la planta.</p>
+                <p>La robustez nativa de la Nube DigiLink® combinada con las rigurosas medidas de ciberseguridad
+                    industrial de Ingedaca. Permite realizar auditorías unificadas, reportes detallados y anulaciones de
+                    acceso instantáneas a nivel de toda la planta.</p>
             </div>
             <div class="benefit-item reveal" style="transition-delay: 0.2s;">
                 <h4>3. Escalabilidad Regional</h4>
-                <p>Soporte técnico y despliegue local liderado desde Caracas, con expansiones activas gestionadas en Miami y Bogotá. Entregamos proyectos llave en mano totalmente integrados en plataformas de Gemelos Digitales y BIM 3D.</p>
+                <p>Soporte técnico y despliegue local liderado desde Caracas, con expansiones activas gestionadas en
+                    Miami y Bogotá. Entregamos proyectos llave en mano totalmente integrados en plataformas de Gemelos
+                    Digitales y BIM 3D.</p>
             </div>
             <div class="benefit-item reveal" style="transition-delay: 0.3s;">
                 <h4>4. Impacto Sostenible</h4>
-                <p>Eliminamos por completo las llaves físicas a favor de una gestión móvil y en la nube. Esta reducción de desperdicios y mantenimiento se alinea perfectamente con los nuevos paradigmas de transformación digital sostenible adoptados post-COVID.</p>
+                <p>Eliminamos por completo las llaves físicas a favor de una gestión móvil y en la nube. Esta reducción
+                    de desperdicios y mantenimiento se alinea perfectamente con los nuevos paradigmas de transformación
+                    digital sostenible adoptados post-COVID.</p>
             </div>
         </div>
     </section>
 
     <!-- Lead Generation CTA -->
-    <section id="cta" class="content-section" style="background: radial-gradient(circle at center, rgba(255,107,0,0.1) 0%, transparent 70%);">
-        <div class="form-wrapper reveal" style="max-width: 700px; margin: 0 auto; background: rgba(0,0,0,0.5); backdrop-filter: blur(20px); border: 1px solid rgba(255,107,0,0.3); border-radius: 20px; padding: 4rem;">
+    <section id="cta" class="content-section"
+        style="background: radial-gradient(circle at center, rgba(255,107,0,0.1) 0%, transparent 70%);">
+        <div class="form-wrapper reveal"
+            style="max-width: 700px; margin: 0 auto; background: rgba(0,0,0,0.5); backdrop-filter: blur(20px); border: 1px solid rgba(255,107,0,0.3); border-radius: 20px; padding: 4rem;">
             <h2 style="text-align: center; margin-bottom: 1rem;">Lleva tu Control de Acceso al Siguiente Nivel</h2>
-            <p style="text-align: center; margin-bottom: 3rem; color: #ccc;">Solicita tu Demo Gratuita y comienza la modernización.</p>
-            
+            <p style="text-align: center; margin-bottom: 3rem; color: #ccc;">Solicita tu Demo Gratuita y comienza la
+                modernización.</p>
+
             <form id="leadForm">
                 <input type="text" placeholder="Nombre Completo" required>
                 <input type="email" placeholder="Correo Corporativo" required>
@@ -317,16 +390,19 @@
                     <option value="orbit">Orbit™ - Alta Seguridad sin contacto</option>
                     <option value="otros">Otras Soluciones / Asesoría</option>
                 </select>
-                <button type="submit" class="btn-primary" style="width: 100%; margin-top: 1rem;">Solicitar Demo en Caracas</button>
+                <button type="submit" class="btn-primary" style="width: 100%; margin-top: 1rem;">Solicitar Demo en
+                    Caracas</button>
             </form>
             <div id="successMsg" style="display: none; text-align: center; padding: 2rem;">
                 <h3 class="text-gradient">¡Solicitud Exitosa!</h3>
                 <p>Un experto de nuestra oficina en Caracas se comunicará pronto.</p>
             </div>
 
-            <div style="margin-top: 3rem; text-align: center; font-size: 0.9rem; color: #888; border-top: 1px solid #333; padding-top: 2rem;">
+            <div
+                style="margin-top: 3rem; text-align: center; font-size: 0.9rem; color: #888; border-top: 1px solid #333; padding-top: 2rem;">
                 <p>📍 <strong>Oficina Principal (Venezuela):</strong> Chacao, Torre Miranda, Caracas</p>
-                <p style="margin-top: 0.5rem;">🌐 <strong>Presencia Regional:</strong> Miami (USA) | Bogotá (Colombia) | México</p>
+                <p style="margin-top: 0.5rem;">🌐 <strong>Presencia Regional:</strong> Miami (USA) | Bogotá (Colombia) |
+                    México</p>
             </div>
         </div>
     </section>
@@ -336,12 +412,13 @@
         <div class="footer-grid">
             <div class="footer-logo">
                 <img src="assets/images/logo/Logo Ingedaca.png" alt="Ingedaca Logo">
-                <p style="font-size: 0.9rem; color: var(--text-secondary); max-width: 300px;">Construyendo el futuro industrial a través de la excelencia en ingeniería y alianzas estratégicas como DigiLock.</p>
+                <p style="font-size: 0.9rem; color: var(--text-secondary); max-width: 300px;">Construyendo el futuro
+                    industrial a través de la excelencia en ingeniería y alianzas estratégicas como DigiLock.</p>
             </div>
             <div class="footer-col">
                 <h4>Enlaces</h4>
                 <ul>
-                    <li><a href="index.html">Volver a Inicio</a></li>
+                    <li><a href="alianza-digilock.html">Volver a Inicio</a></li>
                     <li><a href="#alianza">La Alianza</a></li>
                     <li><a href="#cta">Solicitar Demo</a></li>
                 </ul>
@@ -362,14 +439,14 @@
                 }
             });
         }, observerOptions);
-        
+
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
         // Mobile Menu
         const menuToggle = document.getElementById('mobileMenu');
         const nav = document.querySelector('nav');
-        
-        if(menuToggle && nav) {
+
+        if (menuToggle && nav) {
             menuToggle.addEventListener('click', () => {
                 nav.classList.toggle('mobile-active');
                 menuToggle.classList.toggle('active');
@@ -385,7 +462,7 @@
 
         // Form
         const form = document.getElementById('leadForm');
-        if(form) {
+        if (form) {
             form.addEventListener('submit', (e) => {
                 e.preventDefault();
                 form.style.display = 'none';
@@ -394,4 +471,5 @@
         }
     </script>
 </body>
+
 </html>
