@@ -58,12 +58,25 @@
             color: var(--primary-orange, #ff6b00);
         }
 
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
+        .carousel-wrapper {
+            position: relative;
             max-width: 1200px;
             margin: 3rem auto 0;
+            padding: 0 10px;
+        }
+
+        .products-grid {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            gap: 2rem;
+            scrollbar-width: none;
+            scroll-behavior: smooth;
+            padding-bottom: 2rem;
+        }
+
+        .products-grid::-webkit-scrollbar {
+            display: none;
         }
 
         .product-card {
@@ -72,6 +85,40 @@
             padding: 2rem;
             border-left: 4px solid var(--primary-orange, #ff6b00);
             transition: all 0.3s ease;
+            flex: 0 0 calc(33.333% - 1.33rem); /* 3 cards on desktop */
+            scroll-snap-align: start;
+            min-width: 250px;
+        }
+
+        .carousel-btn {
+            position: absolute;
+            top: calc(50% - 1rem);
+            transform: translateY(-50%);
+            z-index: 10;
+            background: rgba(255, 107, 0, 0.9);
+            border: none;
+            color: #fff;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s, transform 0.2s;
+        }
+        
+        .carousel-btn:hover { background: rgba(255, 107, 0, 1); transform: translateY(-50%) scale(1.1); }
+        .carousel-btn.prev { left: -15px; }
+        .carousel-btn.next { right: -15px; }
+
+        @media (max-width: 900px) {
+            .product-card { flex: 0 0 calc(50% - 1rem); }
+        }
+        @media (max-width: 600px) {
+            .product-card { flex: 0 0 100%; }
         }
 
         .product-card:hover {
@@ -163,19 +210,42 @@
             header {
                 padding: 1rem 5%;
                 gap: 0.5rem;
+                justify-content: space-between;
             }
 
             .logo-container img {
-                height: 35px !important;
+                content: url('assets/images/logo/isotipo.png');
+                height: 38px !important;
             }
 
             .nav-actions {
+                margin-left: auto;
                 gap: 0.5rem;
             }
 
             .nav-actions a.btn-primary {
-                padding: 0.4rem 0.6rem !important;
-                font-size: 0.8rem !important;
+                padding: 0.6rem 1rem !important;
+                font-size: 0.85rem !important;
+            }
+
+            .form-wrapper {
+                padding: 2rem 1.5rem !important;
+            }
+
+            #leadForm input, #leadForm select {
+                width: 100% !important;
+                box-sizing: border-box !important;
+            }
+
+            .footer-col, .footer-logo {
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .footer-logo p {
+                margin: 0 auto;
             }
         }
     </style>
@@ -215,7 +285,7 @@
                     style="height: 50px; object-fit: contain;">
                 <span class="text-gradient" style="font-size: 3rem; font-weight: bold; line-height: 1;">+</span>
                 <img src="assets/images/aliados/digi.png" alt="DigiLock"
-                    style="height: 120px; object-fit: contain; filter: brightness(0) invert(1);">
+                    style="height: 160px; object-fit: contain; filter: brightness(0) invert(1);">
             </div>
             <h1>Transforma tu Industria: <br class="hidden sm:block"><span class="text-gradient">Seguridad
                     Inteligente</span></h1>
@@ -285,7 +355,9 @@
             <p>Soluciones diseñadas para los entornos más exigentes</p>
         </div>
 
-        <div class="products-grid">
+        <div class="carousel-wrapper">
+            <button class="carousel-btn prev" onclick="scrollCarousel(-1)">&#10094;</button>
+            <div class="products-grid" id="productCarousel">
             <div class="product-card reveal">
                 <span class="product-badge">Top Integración</span>
                 <h4>Curve™</h4>
@@ -334,6 +406,8 @@
                     Presupuestos accesibles, permitiendo una modernización rápida y adaptable del mobiliario existente.
                 </p>
             </div>
+            </div>
+            <button class="carousel-btn next" onclick="scrollCarousel(1)">&#10095;</button>
         </div>
     </section>
 
@@ -375,9 +449,8 @@
         style="background: radial-gradient(circle at center, rgba(255,107,0,0.1) 0%, transparent 70%);">
         <div class="form-wrapper reveal"
             style="max-width: 700px; margin: 0 auto; background: rgba(0,0,0,0.5); backdrop-filter: blur(20px); border: 1px solid rgba(255,107,0,0.3); border-radius: 20px; padding: 4rem;">
-            <h2 style="text-align: center; margin-bottom: 1rem;">Lleva tu Control de Acceso al Siguiente Nivel</h2>
-            <p style="text-align: center; margin-bottom: 3rem; color: #ccc;">Solicita tu Demo Gratuita y comienza la
-                modernización.</p>
+            <h2 style="text-align: center; margin-bottom: 1rem;">Solicita tu Demo</h2>
+            <p style="text-align: center; margin-bottom: 3rem; color: #ccc;">Comienza la modernización de tus instalaciones.</p>
 
             <form id="leadForm">
                 <input type="text" placeholder="Nombre Completo" required>
@@ -468,6 +541,14 @@
                 form.style.display = 'none';
                 document.getElementById('successMsg').style.display = 'block';
             });
+        }
+
+        function scrollCarousel(direction) {
+            const track = document.getElementById('productCarousel');
+            if(track) {
+                const cardWidth = track.querySelector('.product-card').offsetWidth + 32;
+                track.scrollBy({ left: direction * cardWidth, behavior: 'smooth' });
+            }
         }
     </script>
 </body>
